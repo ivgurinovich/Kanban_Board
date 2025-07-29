@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 12px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #333; padding: 6px; }
+    </style>
+</head>
+<body>
+    <h2>Task Report</h2>
+    <p>From: {{ date_from }} To: {{ date_to }}</p>
+    <p>User: {{ user_filter|default:"All users" }}</p>
+
+    <img src="{{ chart_path }}" width="300"/>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Author</th>
+                <th>Assignee</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                <td>{{ task.get_status_display }}</td>
+                <td>{{ task.author.username }}</td>
+                <td>{{ task.assignee.username }}</td>
+                <td>{{ task.created_at|date:"Y-m-d" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

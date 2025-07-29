@@ -1,0 +1,29 @@
+{% extends 'board/base.html' %}
+{% block content %}
+<h2>{{ task.title }}</h2>
+<p><strong>Description:</strong> {{ task.description }}</p>
+<p><strong>Status:</strong> {{ task.get_status_display }}</p>
+<p><strong>Author:</strong> {{ task.author.username }}</p>
+<p><strong>Assignee:</strong> {{ task.assignee.username }}</p>
+
+<hr>
+<h4>Comments</h4>
+<ul class="list-group mb-3">
+    {% for comment in comments %}
+        <li class="list-group-item">
+            <strong>{{ comment.author.username }}</strong> ({{ comment.created_at|date:"M d, Y H:i" }}):<br>
+            {{ comment.text }}
+        </li>
+    {% empty %}
+        <li class="list-group-item">No comments yet.</li>
+    {% endfor %}
+</ul>
+
+<h5>Add a Comment</h5>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Add Comment</button>
+</form>
+<a href="{% url 'task_board' %}" class="btn btn-secondary mt-3">Back</a>
+{% endblock %}

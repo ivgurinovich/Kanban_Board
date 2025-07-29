@@ -1,0 +1,10 @@
+{% extends 'board/base.html' %}
+{% block content %}
+<h2>{% if form.instance.pk %}Edit Task{% else %}Create Task{% endif %}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{% url 'task_board' %}" class="btn btn-secondary">Back</a>
+</form>
+{% endblock %}
