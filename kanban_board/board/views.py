@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Task, Comment
-from .forms import TaskForm, CommentForm
+from .forms import TaskForm, CommentForm, TaskFilterForm
 from django.contrib.auth.decorators import login_required
 import matplotlib.pyplot as plt
 from django.template.loader import get_template
@@ -16,8 +16,8 @@ from .forms import RegisterForm
 from django.contrib.auth import login
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
-
+import pdfkit
+from django.template.loader import render_to_string
 
 
 @login_required
@@ -74,49 +74,6 @@ def generate_pdf(template_src, context_dict):
     return HttpResponse('Error generating PDF', status=500)
 
 
-def generate_report(request):
-    date_from = request.GET.get('date_from')
-    date_to = request.GET.get('date_to')
-    user_id = request.GET.get('user')
-
-    tasks = Task.objects.all()
-
-    if date_from:
-        tasks = tasks.filter(created_at__date__gte=date_from)
-    if date_to:
-        tasks = tasks.filter(created_at__date__lte=date_to)
-    if user_id:
-        tasks = tasks.filter(author__id=user_id)
-
-    # Pie chart
-    status_counts = {
-        'To Do': tasks.filter(status='to_do').count(),
-        'In Progress': tasks.filter(status='in_progress').count(),
-        'Done': tasks.filter(status='done').count(),
-    }
-
-    labels = list(status_counts.keys())
-    sizes = list(status_counts.values())
-
-    plt.figure(figsize=(4, 4))
-    plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=140)
-    plt.axis('equal')
-
-    chart_path = os.path.join(settings.MEDIA_ROOT, 'task_chart.png')
-    plt.savefig(chart_path)
-    plt.close()
-
-    context = {
-        'tasks': tasks,
-        'date_from': date_from,
-        'date_to': date_to,
-        'user_filter': User.objects.get(pk=user_id).username if user_id else None,
-        'chart_path': f'file://{chart_path}'
-    }
-
-    return generate_pdf('board/report_template.html', context)
-
-
 def register_view(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -132,14 +89,32 @@ def register_view(request):
 @login_required
 def task_board(request):
     tasks = Task.objects.all()
+    form = TaskFilterForm(request.GET)
+
+    if form.is_valid():
+        if form.cleaned_data['assignee']:
+            tasks = tasks.filter(assignee__username__icontains=form.cleaned_data['assignee'])
+        if form.cleaned_data['author']:
+            tasks = tasks.filter(author__username__icontains=form.cleaned_data['author'])
+        if form.cleaned_data['status']:
+            tasks = tasks.filter(status=form.cleaned_data['status'])
+        if form.cleaned_data['start_date']:
+            tasks = tasks.filter(created_at__gte=form.cleaned_data['start_date'])
+        if form.cleaned_data['end_date']:
+            tasks = tasks.filter(created_at__lte=form.cleaned_data['end_date'])
+        if form.cleaned_data.get('show_only_mine'):
+            tasks = tasks.filter(assignee=request.user)
+
     status_columns = [
         ('to_do', 'To Do'),
         ('in_progress', 'In Progress'),
         ('done', 'Done'),
     ]
+
     return render(request, 'board/task_board.html', {
         'tasks': tasks,
-        'status_columns': status_columns
+        'form': form,
+        'status_columns': status_columns,
     })
 
 
@@ -156,3 +131,31 @@ def update_task_status(request):
             return JsonResponse({'success': True})
         except Task.DoesNotExist:
             return JsonResponse({'success': False, 'error': 'Task not found'})
+
+
+def generate_report(request):
+    tasks = Task.objects.all()
+    form = TaskFilterForm(request.GET)
+
+    if form.is_valid():
+        if form.cleaned_data['assignee']:
+            tasks = tasks.filter(assignee__username__icontains=form.cleaned_data['assignee'])
+        if form.cleaned_data['author']:
+            tasks = tasks.filter(author__username__icontains=form.cleaned_data['author'])
+        if form.cleaned_data['status']:
+            tasks = tasks.filter(status=form.cleaned_data['status'])
+        if form.cleaned_data['start_date']:
+            tasks = tasks.filter(created_at__gte=form.cleaned_data['start_date'])
+        if form.cleaned_data['end_date']:
+            tasks = tasks.filter(created_at__lte=form.cleaned_data['end_date'])
+        if form.cleaned_data.get('show_only_mine'):
+            tasks = tasks.filter(assignee__isnull=False, assignee=request.user)
+
+    template = get_template('board/report_template.html')
+    html = template.render({'tasks': tasks})
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result)
+
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return HttpResponse('Error generating PDF', status=500)

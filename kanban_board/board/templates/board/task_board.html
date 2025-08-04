@@ -1,9 +1,42 @@
 {% extends 'board/base.html' %}
 {% block content %}
 <h2>Task Board</h2>
+
 <div class="mb-3">
     <a href="{% url 'task_create' %}" class="btn btn-success">➕ Create Task</a>
 </div>
+
+<form method="get" class="mb-3">
+    <div class="d-flex flex-wrap align-items-end gap-3">
+        <div class="d-flex flex-wrap gap-3">
+            <div>
+                {{ form.assignee.label_tag }} {{ form.assignee }}
+            </div>
+            <div>
+                {{ form.author.label_tag }} {{ form.author }}
+            </div>
+            <div>
+                {{ form.start_date.label_tag }} {{ form.start_date }}
+            </div>
+            <div>
+                {{ form.end_date.label_tag }} {{ form.end_date }}
+            </div>
+            <div>
+                {{ form.status.label_tag }} {{ form.status }}
+            </div>
+            <div class="form-check mt-4">
+                {{ form.show_only_mine }} {{ form.show_only_mine.label_tag }}
+            </div>
+        </div>
+
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Apply Filters</button>
+            <a href="{% url 'task_board' %}" class="btn btn-secondary">Reset Filters</a>
+            <a href="{% url 'generate_report' %}?{{ request.GET.urlencode }}" class="btn btn-success">Generate Report</a>
+        </div>
+    </div>
+</form>
 
 <div class="d-flex justify-content-between">
     {% for pair in status_columns %}
