@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e1dd802d-012f-4c46-95e2-7eb395bb7daa" name="Changes" comment="filters and generate report button are added">
+      <change afterPath="$PROJECT_DIR$/kanban_board/board/templates/board/task_confirm_delete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kanban_board/board/templates/board/task_board.html" beforeDir="false" afterPath="$PROJECT_DIR$/kanban_board/board/templates/board/task_board.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kanban_board/board/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/kanban_board/board/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kanban_board/board/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/kanban_board/board/views.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../Kanban_Board\exportToHTML" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ivgurinovich&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ivgurinovich/Kanban_Board.git&quot;,
+    &quot;accountId&quot;: &quot;253a5096-6b92-4638-8459-c4dbdc4d3481&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="30YJAUFl0AAUaOluJKxRu7dZcot" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ivgur\PycharmProjects\Kanban_Board\kanban_board" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-890ed5b35930-d9c5bdb153f4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.23774.444" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e1dd802d-012f-4c46-95e2-7eb395bb7daa" name="Changes" comment="" />
+      <created>1753798429508</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1753798429508</updated>
+    </task>
+    <task id="LOCAL-00001" summary="qwerty">
+      <option name="closed" value="true" />
+      <created>1753804051711</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1753804051711</updated>
+    </task>
+    <task id="LOCAL-00002" summary="filters and generate report button are added">
+      <option name="closed" value="true" />
+      <created>1754310623482</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1754310623482</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="qwerty" />
+    <MESSAGE value="filters and generate report button are added" />
+    <option name="LAST_COMMIT_MESSAGE" value="filters and generate report button are added" />
+  </component>
+</project>

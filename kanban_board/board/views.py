@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Task, Comment
 from .forms import TaskForm, CommentForm, TaskFilterForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 import matplotlib.pyplot as plt
 from django.template.loader import get_template
 from django.http import HttpResponse
@@ -159,3 +160,17 @@ def generate_report(request):
     if not pdf.err:
         return HttpResponse(result.getvalue(), content_type='application/pdf')
     return HttpResponse('Error generating PDF', status=500)
+
+
+@login_required
+def task_delete(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    if task.author != request.user:
+        return HttpResponse("You do not have permission to delete this task.", status=403)
+
+    if request.method == 'POST':
+        task.delete()
+        messages.success(request, 'Task deleted successfully.')
+        return redirect('task_board')
+
+    return render(request, 'board/task_confirm_delete.html', {'task': task})

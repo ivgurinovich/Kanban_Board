@@ -53,7 +53,9 @@
                     <a href="{% url 'task_detail' task.id %}" class="btn btn-sm btn-primary">View</a>
                     {% if task.author == request.user %}
                     <a href="{% url 'task_update' task.id %}" class="btn btn-sm btn-secondary">Edit</a>
+                    <a href="{% url 'task_delete' task.id %}" class="btn btn-sm btn-danger">Delete</a>
                     {% endif %}
+
                 </div>
             </div>
             {% endif %}
