@@ -9,33 +9,33 @@
     </style>
 </head>
 <body>
-    <h2>Task Report</h2>
-    <p>From: {{ date_from }} To: {{ date_to }}</p>
-    <p>User: {{ user_filter|default:"All users" }}</p>
+<h2>Task Report</h2>
+<p>From: {{ date_from }} To: {{ date_to }}</p>
+<p>User: {{ user_filter|default:"All users" }}</p>
 
-    <img src="{{ chart_path }}" width="300"/>
+<img src="{{ chart_path }}" width="300"/>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Author</th>
-                <th>Assignee</th>
-                <th>Created</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for task in tasks %}
-            <tr>
-                <td>{{ task.title }}</td>
-                <td>{{ task.get_status_display }}</td>
-                <td>{{ task.author.username }}</td>
-                <td>{{ task.assignee.username }}</td>
-                <td>{{ task.created_at|date:"Y-m-d" }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Author</th>
+        <th>Assignee</th>
+        <th>Created</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for task in tasks %}
+    <tr>
+        <td>{{ task.title }}</td>
+        <td>{{ task.get_status_display }}</td>
+        <td>{{ task.author.username }}</td>
+        <td>{{ task.assignee.username }}</td>
+        <td>{{ task.created_at|date:"Y-m-d" }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
 </body>
 </html>

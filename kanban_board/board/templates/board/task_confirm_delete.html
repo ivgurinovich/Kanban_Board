@@ -1,10 +1,10 @@
 {% extends 'board/base.html' %}
 
 {% block content %}
-  <h2>Delete task "{{ task.title }}"?</h2>
-  <form method="post">
+<h2>Delete task "{{ task.title }}"?</h2>
+<form method="post">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">Delete</button>
     <a href="{% url 'task_board' %}" class="btn btn-secondary">Cancel</a>
-  </form>
+</form>
 {% endblock %}
